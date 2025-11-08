@@ -61,7 +61,7 @@ export async function run(inlineConfig?: SponsorkitConfig, t = consola) {
     const { hierarchy, pack } = await import('d3-hierarchy')
     const composer = new SvgComposer(config)
 
-    const amountMax = Math.max(...allSponsors.map(sponsor => sponsor.monthlyDollars))
+    const amountMax = Math.max(...allSponsors.map(sponsor => sponsor.money))
     const {
       radiusMax = 300,
       radiusMin = 10,
@@ -70,13 +70,13 @@ export async function run(inlineConfig?: SponsorkitConfig, t = consola) {
     } = config.circles || {}
 
     function defaultInterop(sponsor: Sponsorship) {
-      return sponsor.monthlyDollars < 0
+      return sponsor.money < 0
         ? radiusPast
-        : lerp(radiusMin, radiusMax, (Math.max(0.1, sponsor.monthlyDollars || 0) / amountMax) ** 0.9)
+        : lerp(radiusMin, radiusMax, (Math.max(0.1, sponsor.money || 0) / amountMax) ** 0.9)
     }
 
     if (!config.includePastSponsors)
-      allSponsors = allSponsors.filter(sponsor => sponsor.monthlyDollars > 0)
+      allSponsors = allSponsors.filter(sponsor => sponsor.money > 0)
 
     const root = hierarchy({ ...allSponsors[0], children: allSponsors, id: 'root' })
       .sum(d => weightInterop(d, amountMax))
@@ -152,13 +152,13 @@ export async function run(inlineConfig?: SponsorkitConfig, t = consola) {
     else {
       allSponsors = await fs.readJSON(cacheFile)
       if (config.customGithubUser) {
-        const cacheUsers = allSponsors.map(s => ({ user: s.sponsor.name, monthlyDollars: s.monthlyDollars }))
-        const isCached = (user: any) => cacheUsers.some(c => c.user === user.user && c.monthlyDollars === user.monthlyDollars)
-        const isNeedUpdateMonthlyDollars = (user: any) => cacheUsers.some(c => c.user === user.user && c.monthlyDollars !== user.monthlyDollars)
+        const cacheUsers = allSponsors.map(s => ({ user: s.sponsor.name, money: s.money }))
+        const isCached = (user: any) => cacheUsers.some(c => c.user === user.user && c.money === user.money)
+        const isNeedUpdatemoney = (user: any) => cacheUsers.some(c => c.user === user.user && c.money !== user.money)
         // 过滤掉缓存中已存在的 username
         const filters = config.customGithubUser.filter(p => p.user && !isCached(p))
-        allSponsors = allSponsors.filter(s => !isNeedUpdateMonthlyDollars({ user: s.sponsor.name, monthlyDollars: s.monthlyDollars }))
-        // 如果 old user 但是 monthlyDollars 不同,也要重新获取
+        allSponsors = allSponsors.filter(s => !isNeedUpdatemoney({ user: s.sponsor.name, money: s.money }))
+        // 如果 old user 但是 money 不同,也要重新获取
         const customSponsors = await customAddUser(filters)
         if (customSponsors.length > 0) {
           await resolveAvatars(customSponsors, config.fallbackAvatar, t)
@@ -180,7 +180,7 @@ export async function run(inlineConfig?: SponsorkitConfig, t = consola) {
 
     // Sort
     allSponsors.sort((a, b) =>
-      b.monthlyDollars - a.monthlyDollars // DESC amount
+      b.money - a.money // DESC amount
       || Date.parse(b.createdAt!) - Date.parse(a.createdAt!) // DESC date
       || (b.sponsor.login || b.sponsor.name).localeCompare(a.sponsor.login || a.sponsor.name), // ASC name
     )

@@ -64,7 +64,7 @@ export async function fetchPatreonSponsors(token: string): Promise<Sponsorship[]
         linkUrl: raw.patron.attributes.url,
       },
       isOneTime: false, // One-time pledges not supported
-      monthlyDollars: raw.membership.attributes.patron_status === 'former_patron' ? -1 : Math.floor(raw.membership.attributes.currently_entitled_amount_cents / 100),
+      money: raw.membership.attributes.patron_status === 'former_patron' ? -1 : Math.floor(raw.membership.attributes.currently_entitled_amount_cents / 100),
       privacyLevel: 'PUBLIC', // Patreon is all public
       tierName: 'Patreon',
       createdAt: raw.membership.attributes.pledge_relationship_start,

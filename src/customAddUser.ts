@@ -1,9 +1,9 @@
 import { Buffer } from 'node:buffer'
 import { $fetch } from 'ofetch'
 
-export async function customAddUser(users: { user: string; monthlyDollars: number }[]) {
+export async function customAddUser(users: { user: string; money: number }[]) {
   const customData: any[] = []
-  await Promise.all(users.map(({ user, monthlyDollars }) => {
+  await Promise.all(users.map(({ user, money }) => {
     return new Promise((resolve) => {
       $fetch(`https://api.github.com/users/${user}`, {
         responseType: 'json',
@@ -18,7 +18,7 @@ export async function customAddUser(users: { user: string; monthlyDollars: numbe
               avatarUrl: data.avatar_url,
               linkUrl: `https://github.com/${user}`,
             },
-            monthlyDollars,
+            money,
           })
           resolve(customData)
         })

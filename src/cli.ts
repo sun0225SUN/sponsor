@@ -70,12 +70,12 @@ function createFilterFromString(template: string): SponsorkitConfig['filter'] {
   const [_, op, value] = template.split(/([<>=]+)/)
   const num = Number.parseInt(value)
   if (op === '<')
-    return s => s.monthlyDollars < num
+    return s => s.money < num
   if (op === '<=')
-    return s => s.monthlyDollars <= num
+    return s => s.money <= num
   if (op === '>')
-    return s => s.monthlyDollars > num
+    return s => s.money > num
   if (op === '>=')
-    return s => s.monthlyDollars >= num
+    return s => s.money >= num
   throw new Error(`Unable to parse filter template ${template}`)
 }

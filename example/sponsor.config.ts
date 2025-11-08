@@ -2,10 +2,10 @@ import { defineConfig, presets } from '../src/'
 
 const customGithubUser = [{
   user: 'geekris1',
-  monthlyDollars: 1,
+  money: 1,
 }, {
   user: 'saltand',
-  monthlyDollars: 30,
+  money: 30,
 }]
 
 export default defineConfig({
@@ -13,7 +13,7 @@ export default defineConfig({
   tiers: [
     {
       title: 'Past Sponsors',
-      monthlyDollars: -1,
+      money: -1,
       preset: presets.xs,
     },
     {
@@ -27,7 +27,7 @@ export default defineConfig({
     },
     {
       title: 'Sponsors',
-      monthlyDollars: 10,
+      money: 10,
       preset: presets.medium,
       // to insert custom elements after the tier block
       composeAfter: (composer, _tierSponsors, _config) => {
@@ -36,12 +36,12 @@ export default defineConfig({
     },
     {
       title: 'Silver Sponsors',
-      monthlyDollars: 50,
+      money: 50,
       preset: presets.large,
     },
     {
       title: 'Gold Sponsors',
-      monthlyDollars: 100,
+      money: 100,
       preset: presets.xl,
     },
   ],

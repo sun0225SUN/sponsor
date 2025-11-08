@@ -69,7 +69,7 @@ export async function fetchGitHubSponsors(
         type: raw.sponsorEntity.__typename,
       },
       isOneTime: raw.tier.isOneTime,
-      monthlyDollars: raw.tier.monthlyPriceInDollars,
+      money: raw.tier.monthlyPriceInDollars,
       privacyLevel: raw.privacyLevel,
       tierName: raw.tier.name,
       createdAt: raw.createdAt,

@@ -62,7 +62,7 @@ export async function fetchAfdianSponsors(options: SponsorkitConfig['afdian'] = 
         linkUrl: `https://afdian.net/u/${raw.user.user_id}`,
       },
       // all_sum_amount is based on cny
-      monthlyDollars: isExpired
+      money: isExpired
         ? -1
         : Number.parseFloat(raw.all_sum_amount) / exechangeRate,
       privacyLevel: 'PUBLIC',

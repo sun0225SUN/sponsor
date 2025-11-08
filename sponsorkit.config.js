@@ -4,31 +4,39 @@ import { defineConfig, presets } from "@simon_he/sponsorkit";
 const customGithubUser = [
   {
     user: "xbanboo",
-    monthlyDollars: 2000,
+    money: 2000,
   },
   {
     user: "pubuzhixing8",
-    monthlyDollars: 66,
+    money: 66,
   },
   {
     user: "hulk-2019",
-    monthlyDollars: 66,
+    money: 66,
   },
   {
     user: "cellinlab",
-    monthlyDollars: 50,
+    money: 50,
+  },
+  {
+    user: "ccbikai",
+    money: 36,
+  },
+  {
+    user: "Otto-J",
+    money: 50,
   },
   {
     user: "zerone0x",
-    monthlyDollars: 30,
+    money: 30,
   },
   {
     user: "flipped-1121",
-    monthlyDollars: 3,
+    money: 3,
   },
   {
     user: "noobnooc",
-    monthlyDollars: 1,
+    money: 1,
   },
 ];
 
@@ -38,7 +46,7 @@ export default defineConfig({
   tiers: [
     {
       title: "Past Sponsors",
-      monthlyDollars: -1,
+      money: -1,
       preset: presets.xs,
     },
     {
@@ -52,7 +60,7 @@ export default defineConfig({
     },
     {
       title: "Sponsors",
-      monthlyDollars: 10,
+      money: 10,
       preset: presets.medium,
       // to insert custom elements after the tier block
       composeAfter: (composer, _tierSponsors, _config) => {
@@ -61,12 +69,12 @@ export default defineConfig({
     },
     {
       title: "Silver Sponsors",
-      monthlyDollars: 50,
+      money: 50,
       preset: presets.large,
     },
     {
       title: "Gold Sponsors",
-      monthlyDollars: 100,
+      money: 100,
       preset: presets.xl,
     },
   ],

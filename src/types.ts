@@ -39,7 +39,7 @@ export interface Sponsor {
 
 export interface Sponsorship {
   sponsor: Sponsor
-  monthlyDollars: number
+  money: number
   privacyLevel?: 'PUBLIC' | 'PRIVATE'
   tierName?: string
   createdAt?: string
@@ -212,7 +212,7 @@ export interface SponsorkitConfig extends ProvidersConfig {
    *
    * @default ['json', 'svg', 'png']
    */
-  customGithubUser?: { user: string; monthlyDollars: number }[]
+  customGithubUser?: { user: string; money: number }[]
 
   /**
    * Hook to modify sponsors data before fetching the avatars.
@@ -311,7 +311,7 @@ export interface Tier {
   /**
    * The lower bound of the tier (inclusive)
    */
-  monthlyDollars?: number
+  money?: number
   title?: string
   preset?: BadgePreset
   padding?: {

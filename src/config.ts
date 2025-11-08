@@ -7,7 +7,7 @@ import type { SponsorkitConfig, Sponsorship, Tier } from './types'
 export const defaultTiers: Tier[] = [
   {
     title: 'Past Sponsors',
-    monthlyDollars: -1,
+    money: -1,
     preset: presets.xs,
   },
   {
@@ -16,17 +16,17 @@ export const defaultTiers: Tier[] = [
   },
   {
     title: 'Sponsors',
-    monthlyDollars: 10,
+    money: 10,
     preset: presets.medium,
   },
   {
     title: 'Silver Sponsors',
-    monthlyDollars: 50,
+    money: 50,
     preset: presets.large,
   },
   {
     title: 'Gold Sponsors',
-    monthlyDollars: 100,
+    money: 100,
     preset: presets.xl,
   },
 ]
@@ -77,7 +77,7 @@ export async function loadConfig(inlineConfig: SponsorkitConfig = {}) {
     merge: true,
   })
 
-  const hasNegativeTier = !!config.tiers?.find(tier => tier && tier.monthlyDollars! <= 0)
+  const hasNegativeTier = !!config.tiers?.find(tier => tier && tier.money! <= 0)
 
   const resolved = {
     fallbackAvatar: FALLBACK_AVATAR,
@@ -112,29 +112,29 @@ export async function loadConfig(inlineConfig: SponsorkitConfig = {}) {
 }
 
 export interface TierPartition {
-  monthlyDollars: number
+  money: number
   tier: Tier
   sponsors: Sponsorship[]
 }
 
 export function partitionTiers(sponsors: Sponsorship[], tiers: Tier[]) {
   const tierMappings = tiers!.map<TierPartition>(tier => ({
-    monthlyDollars: tier.monthlyDollars ?? 0,
+    money: tier.money ?? 0,
     tier,
     sponsors: [],
   }))
 
-  tierMappings.sort((a, b) => b.monthlyDollars - a.monthlyDollars)
+  tierMappings.sort((a, b) => b.money - a.money)
 
-  const finalSponsors = tierMappings.filter(i => i.monthlyDollars === 0)
+  const finalSponsors = tierMappings.filter(i => i.money === 0)
 
   if (finalSponsors.length !== 1)
-    throw new Error(`There should be exactly one tier with no \`monthlyDollars\`, but got ${finalSponsors.length}`)
+    throw new Error(`There should be exactly one tier with no \`money\`, but got ${finalSponsors.length}`)
 
   sponsors
     .sort((a, b) => Date.parse(a.createdAt!) - Date.parse(b.createdAt!))
     .forEach((sponsor) => {
-      const tier = tierMappings.find(t => sponsor.monthlyDollars >= t.monthlyDollars) ?? tierMappings[0]
+      const tier = tierMappings.find(t => sponsor.money >= t.money) ?? tierMappings[0]
       tier.sponsors.push(sponsor)
     })
 

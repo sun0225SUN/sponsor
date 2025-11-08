@@ -30,7 +30,7 @@ function pickSponsorsInfo(html: string): Sponsorship[] {
         type,
       },
       isOneTime: undefined,
-      monthlyDollars: -1,
+      money: -1,
       privacyLevel: isPublic ? 'PUBLIC' : 'PRIVATE',
       tierName: undefined,
       createdAt: baseDate.toUTCString(),

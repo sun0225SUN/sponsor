@@ -87,7 +87,7 @@ export async function fetchOpenCollectiveSponsors(key?: string, id?: string, slu
         linkUrl: `https://opencollective.com/${slug}`,
       },
       isOneTime: !v.tier || v.tier.type === 'DONATION',
-      monthlyDollars: (collective
+      money: (collective
         ? (v.tier ? v.tier.amount.valueInCents : v.totalDonations.valueInCents)
         : count[slug].valueInCents
       ) / 100,
