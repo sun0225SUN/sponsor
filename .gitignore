@@ -81,3 +81,5 @@ dist
 .idea
 sponsorkit
 .DS_Store
+
+sponsorkit.config.js
